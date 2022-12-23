@@ -2,17 +2,32 @@ import { useState } from "react";
 
 const OutputText = () => {
   const [text, setText] = useState("");
+  const [ToDos, setToDo] = useState<string[]>([]);
+
+  const handleClick = () => {
+    console.log("pressbutton");
+    setToDo((Prev_ToDos) => [...Prev_ToDos, text]);
+    setText("");
+  };
   return (
     <div className="App ">
       {/* ↓value属性にstate変数「text」を指定 */}
-      <input
-        value={text}
-        className="border-2 border-black"
-        onChange={(event) => setText(event.target.value)}
-      />
+      <div className="inline">
+        <input
+          value={text}
+          className="border-2 border-black"
+          onChange={(event) => setText(event.target.value)}
+        />
+        <button type="submit" className="border-2" onClick={handleClick}>
+          追加
+        </button>
+      </div>
 
-      {/* ↓state変数「text」を表示する */}
-      <p className="text-3xl">{text}</p>
+      <ul>
+        {ToDos.map((ToDo) => {
+          return <li>{ToDo}</li>;
+        })}
+      </ul>
     </div>
   );
 };
